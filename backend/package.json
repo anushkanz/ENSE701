@@ -1,5 +1,5 @@
 {
-  "name": "backend",
+  "name": "worksheet3_backend",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -8,7 +8,7 @@
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "nest start",
+    "start": "nodemon",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
@@ -25,7 +25,9 @@
     "@nestjs/core": "^10.0.0",
     "@nestjs/mongoose": "^10.0.10",
     "@nestjs/platform-express": "^10.0.0",
-    "mongoose": "^8.7.0",
+    "dotenv": "^16.4.5",
+    "mongoose": "^8.5.2",
+    "nodemon": "^3.1.4",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1"
   },

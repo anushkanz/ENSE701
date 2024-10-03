@@ -8,8 +8,33 @@ const [pubYear, setPubYear] = useState<number>(0);
 const [doi, setDoi] = useState("");
 const [summary, setSummary] = useState("");
 const [linkedDiscussion, setLinkedDiscussion] = useState("");
+
+//Submit 
 const submitNewArticle = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+
+        let response = await fetch('http://localhost:8082/api/articles/', {
+            method: "POST",
+            body: JSON.stringify({
+                title,
+                authors,
+                source,
+                publication_year: pubYear,
+                doi,
+                summary,
+                linked_discussion: linkedDiscussion,
+                status
+            }),
+            headers: {
+                'Content-type': 'application/json'
+            }
+        })
+
+        response = await response.json()
+
+        console.log(JSON.stringify(response));
+    
     console.log(
         JSON.stringify({
             title,
@@ -41,6 +66,16 @@ return (
     <div className="container">
         <h1>New Article</h1>
         <form className={formStyles.form} onSubmit={submitNewArticle}>
+        <input
+            className={formStyles.formItem}
+            type="hidden"
+            name="status"
+            id="status"
+            value={1}
+            onChange={(event) => {
+            setSource(event.target.value);
+        }}
+        />
         <label htmlFor="title">Title:</label>
         <input
             className={formStyles.formItem}

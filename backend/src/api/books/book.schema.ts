@@ -19,4 +19,5 @@ export type BookDocument = HydratedDocument<Book>;
     @Prop({ type: Date, default: Date.now })
     updated_date: Date;
 }
+
 export const BookSchema = SchemaFactory.createForClass(Book);

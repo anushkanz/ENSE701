@@ -1,4 +1,5 @@
 import { Date } from 'mongoose';
+
 export class CreateBookDto {
     title: string;
     isbn: string;
