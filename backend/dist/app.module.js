@@ -12,13 +12,15 @@ const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const mongoose_1 = require("@nestjs/mongoose");
 const book_module_1 = require("./api/books/book.module");
+const article_module_1 = require("./api/articles/article.module");
+const user_module_1 = require("./api/users/user.module");
 const dotenv = require("dotenv");
 dotenv.config();
 const MONGOOSE_USERNAME = process.env.MONGOOSE_USERNAME;
 const MONGOOSE_PASSWORD = process.env.MONGOOSE_PASSWORD;
 const MONGOOSE_CLUSTER = process.env.MONGOOSE_CLUSTER;
 const MONGOOSE_DB = process.env.MONGOOSE_DB;
-const DB_URI = `mongodb+srv://${MONGOOSE_USERNAME}:${MONGOOSE_PASSWORD}@${MONGOOSE_CLUSTER}/${MONGOOSE_DB}?retryWrites=true&w=majority&appName=AUT`;
+const DB_URI = `mongodb+srv://${MONGOOSE_USERNAME}:${MONGOOSE_PASSWORD}@${MONGOOSE_CLUSTER}/${MONGOOSE_DB}?retryWrites=true&w=majority&appName=ENSE701Cluster`;
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -27,6 +29,8 @@ exports.AppModule = AppModule = __decorate([
         imports: [
             mongoose_1.MongooseModule.forRoot(DB_URI),
             book_module_1.BookModule,
+            article_module_1.ArticleModule,
+            user_module_1.UserModule
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

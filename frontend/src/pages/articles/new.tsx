@@ -2,33 +2,32 @@ import { FormEvent, useState } from "react";
 import formStyles from "../../styles/Form.module.scss";
 const NewDiscussion = () => {
 const [title, setTitle] = useState("");
-const [authors, setAuthors] = useState<string[]>([]);
+const [authors, setAuthors] = useState("");
 const [source, setSource] = useState("");
-const [pubYear, setPubYear] = useState<number>(0);
+const [publication_year, setPubYear] = useState("");
 const [doi, setDoi] = useState("");
 const [summary, setSummary] = useState("");
-const [linkedDiscussion, setLinkedDiscussion] = useState("");
+const [linked_discussion, setLinkedDiscussion] = useState("");
+const [status, setStatus] = useState("");
 
 //Submit 
 const submitNewArticle = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-
-        let response = await fetch('http://localhost:8082/api/articles/', {
+        let response = await fetch('http://localhost:8082/api/articles', {
             method: "POST",
+            headers:{
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
             body: JSON.stringify({
                 title,
                 authors,
                 source,
-                publication_year: pubYear,
+                publication_year,
                 doi,
                 summary,
-                linked_discussion: linkedDiscussion,
+                linked_discussion,
                 status
             }),
-            headers: {
-                'Content-type': 'application/json'
-            }
         })
 
         response = await response.json()
@@ -40,40 +39,41 @@ const submitNewArticle = async (event: FormEvent<HTMLFormElement>) => {
             title,
             authors,
             source,
-            publication_year: pubYear,
+            publication_year,
             doi,
             summary,
-            linked_discussion: linkedDiscussion,
+            linked_discussion,
         })
     );
 };
 // Some helper methods for the authors array
-const addAuthor = () => {
-    setAuthors(authors.concat([""]));
-};
-const removeAuthor = (index: number) => {
-    setAuthors(authors.filter((_, i) => i !== index));
-};
-const changeAuthor = (index: number, value: string) => {
-setAuthors(
-    authors.map((oldValue, i) => {
-        return index === i ? value : oldValue;
-    })
-);
-};
+// const addAuthor = () => {
+//     setAuthors(authors.concat([""]));
+// };
+// const removeAuthor = (index: number) => {
+//     setAuthors(authors.filter((_, i) => i !== index));
+// };
+//const changeAuthor = (index: number, value: string) => {
+// setAuthors(
+//     authors.map((oldValue, i) => {
+//         return index === i ? value : oldValue;
+//     })
+// );
+//};
 // Return the full form
 return (
-    <div className="container">
+    <div className="space-y-12">
+        <div className="pb-12">
         <h1>New Article</h1>
         <form className={formStyles.form} onSubmit={submitNewArticle}>
         <input
             className={formStyles.formItem}
-            type="hidden"
+            type="text"
             name="status"
             id="status"
             value={1}
             onChange={(event) => {
-            setSource(event.target.value);
+            setStatus(event.target.value);
         }}
         />
         <label htmlFor="title">Title:</label>
@@ -88,30 +88,16 @@ return (
             }}
         />
     <label htmlFor="author">Authors:</label>
-    {authors.map((author, index) => {
-        return (
-            <div key={`author ${index}`} className={formStyles.arrayItem}>
-                <input
-                    type="text"
-                    name="author"
-                    value={author}
-                    onChange={(event) => changeAuthor(index, event.target.value)}
-                    className={formStyles.formItem}
-                    />
-                    <button
-                    onClick={() => removeAuthor(index)}
-                    className={formStyles.buttonItem}
-                    style={{ marginLeft: "3rem" }}
-                    type="button">-</button>
-            </div>
-        );
-    })}
-    <button
-        onClick={() => addAuthor()}
-        className={formStyles.buttonItem}
-        style={{ marginLeft: "auto" }}
-        type="button"
-    >+</button>
+    <input
+        className={formStyles.formItem}
+        type="text"
+        name="authors"
+        id="authors"
+        value={authors}
+        onChange={(event) => {
+        setAuthors(event.target.value);
+    }}
+    />
     <label htmlFor="source">Source:</label>
     <input
         className={formStyles.formItem}
@@ -129,15 +115,10 @@ return (
         type="number"
         name="pubYear"
         id="pubYear"
-        value={pubYear}
+        value={publication_year}
         onChange={(event) => {
-            const val = event.target.value;
-            if (val === "") {
-                setPubYear(0);
-            } else {
-                setPubYear(parseInt(val));
-            }
-    }}
+            setPubYear(event.target.value);
+        }}
     />
     <label htmlFor="doi">DOI:</label>
     <input
@@ -157,8 +138,17 @@ return (
     value={summary}
     onChange={(event) => setSummary(event.target.value)}
     />
+
+    <label htmlFor="linked_discussion">Linked discussion:</label>
+    <textarea
+    className={formStyles.formTextArea}
+    name="linked_discussion"
+    value={linked_discussion}
+    onChange={(event) => setLinkedDiscussion(event.target.value)}
+    />
         <button className={formStyles.formItem} type="submit">Submit</button>
     </form>
+    </div>
     </div>
 );
 };

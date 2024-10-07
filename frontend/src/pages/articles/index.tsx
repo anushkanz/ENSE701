@@ -1,56 +1,84 @@
 import { GetStaticProps, NextPage } from "next";
-//import SortableTable from "../../components/table/SortableTable";
-//import data from "../../utils/dummydata";
-import SortableTable from "@/components/table/SortableTable";
-import data from "@/utils/dummydata";
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter, Route, Link } from "react-router-dom";
+import Cookies from 'js-cookie';
 
-interface ArticlesInterface {
-    id: string;
-    title: string;
-    authors: string;
-    source: string;
-    pubyear: string;
-    doi: string;
-    claim: string;
-    evidence: string;
-}
-type ArticlesProps = {
-    articles: ArticlesInterface[];
-};
-const Articles: NextPage<ArticlesProps> = ({ articles }) => {
-const headers: { key: keyof ArticlesInterface; label: string }[] = [
-{ key: "title", label: "Title" },
-{ key: "authors", label: "Authors" },
-{ key: "source", label: "Source" },
-{ key: "pubyear", label: "Publication Year" },
-{ key: "doi", label: "DOI" },
-{ key: "claim", label: "Claim" },
-{ key: "evidence", label: "Evidence" },
-];
-    return (
-        <div className="container">
-            <h1>Articles Index Page</h1>
-            <p>Page containing a table of articles:</p><SortableTable headers={headers} data={articles} />
-        </div>
-    );
-};
-export const getStaticProps: GetStaticProps<ArticlesProps> = async (_) => {
-// Map the data to ensure all articles have consistent property names
-
-const articles = data.map((article) => ({
-    id: article.id ?? article._id,
-    title: article.title,
-    authors: article.authors,
-    source: article.source,
-    pubyear: article.pubyear,
-    doi: article.doi,
-    claim: article.claim,
-    evidence: article.evidence,
-}));
-return {
-    props: {
-            articles,
-        },
+  const DataFetcher = () => {
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    
+    useEffect(() => {
+      fetchData();
+    }, []);
+  
+    const fetchData = async () => {
+      if(Cookies.get('token')){
+          try {
+            const response = await fetch('http://localhost:8082/api/articles',{
+              method: 'GET',
+              headers:{
+                Accept: 'application/json',
+                        'Content-Type': 'application/json',
+                        'Authorization': "Bearer " + Cookies.get('token'),
+                },
+            }); // Replace with your API endpoint
+            if (!response.ok) {
+              throw new Error('Network response was not ok.');
+            }
+            const data = await response.json();
+            setData(data);
+            setLoading(false);
+          } catch (error) {
+            setError(error);
+            setLoading(false);
+          }
+      }
     };
-};
-export default Articles;
+  
+   return (
+    <div className="space-y-12">
+        <div className="pb-12">
+            {loading ? (
+                <p>Loading...</p>
+            ) : error ? (
+                <p>Error: {error}</p>
+            ) : (
+            
+            <table  className="min-w-full table-fixed">
+                <thead>
+                    <tr>
+                      <th>Title</th>
+                      <th>Authors</th>
+                      <th>Source</th>
+                      <th>Publication year</th>
+                      <th>Doi</th>
+                      <th>Summary</th>
+                      <th>Linked discussion</th>
+                      <th>Status</th>
+                      <th>Open</th>
+                    </tr>
+                </thead>
+                <tbody> 
+                    {data.map((item) => (
+                        <tr key={item._id}>
+                            <td key={item._id}>{item.title}</td>
+                            <td key={item._id}>{item.authors}</td>
+                            <td key={item._id}>{item.source}</td>
+                            <td key={item._id}>{item.publication_year}</td>
+                            <td key={item._id}>{item.doi}</td>
+                            <td key={item._id}>{item.summary}</td>
+                            <td key={item._id}>{item.linked_discussion}</td>
+                            <td key={item._id}>{item.status === '1' ? <p>Active</p> : <p>Not Active</p>}</td>
+                            <td key={item._id}>Open</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+            )}
+        </div>
+    </div>
+  );
+  };
+  // <Link to={`/articles/`}>Go to My Page</Link>
+  export default DataFetcher;
