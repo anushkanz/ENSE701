@@ -7,7 +7,7 @@ type Props = {
     end?: boolean;
     dropdown?: boolean;
     onClick?: boolean | (() => void);
-    style?: React.CSSProperties;
+    style?: any;
 };
 const NavItem = ({ children, route, end, dropdown, onClick, style }: Props) => {
 const router = useRouter();

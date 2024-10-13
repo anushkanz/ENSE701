@@ -1,6 +1,6 @@
 import { FormEvent, useState } from "react";
 import formStyles from "../../styles/Form.module.scss";
-const NewDiscussion = () => {
+const editArticle = () => {
 const [title, setTitle] = useState("");
 const [authors, setAuthors] = useState("");
 const [source, setSource] = useState("");
@@ -11,7 +11,7 @@ const [linked_discussion, setLinkedDiscussion] = useState("");
 const [status, setStatus] = useState("");
 
 //Submit 
-const submitNewArticle = async (event: FormEvent<HTMLFormElement>) => {
+const submitEditArticle = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
         let response = await fetch('http://localhost:8082/api/articles', {
             method: "POST",
@@ -64,7 +64,7 @@ return (
     <div className="bg-white p-10 rounded-lg shadow md:w-3/4 mx-auto lg:w-1/2">
         <div className="pb-12">
         <h1>New Article</h1>
-        <form onSubmit={submitNewArticle}>
+        <form onSubmit={submitEditArticle}>
             <div className="mb-5">
                 <label htmlFor="title">Status:</label>
                 <input
@@ -169,4 +169,4 @@ return (
     </div>
 );
 };
-export default NewDiscussion;
+export default editArticle;

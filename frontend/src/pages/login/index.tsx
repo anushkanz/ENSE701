@@ -1,6 +1,9 @@
 import { FormEvent, useState } from "react";
 import formStyles from "../../styles/Form.module.scss";
 import Cookies from 'js-cookie';
+
+
+
 const userLogin = () => {
 const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
@@ -13,8 +16,6 @@ const submitLogin = async (event: FormEvent<HTMLFormElement>) => {
     formData.append('email', email);
     formData.append('password', password);
 
-    console.log(formData.toString());
-
     let response = await fetch('http://localhost:8082/api/users/login', {
         method: "POST",
         headers:{
@@ -22,12 +23,16 @@ const submitLogin = async (event: FormEvent<HTMLFormElement>) => {
         },
         body: formData.toString(),
     })
-    console.log(await response);
+    
     response = await response.json();
     const getJwt = JSON.stringify(response);
     const jsonArray = JSON.parse(getJwt);
-    console.log(jsonArray.jwt);
+    
     Cookies.set('token', jsonArray.jwt, { expires: 72, secure: true });
+
+    if((jsonArray.jwt.length != 0) || (jsonArray.jwt.length != null)){
+        
+    }
 };
 return (
     <div className="flex items-center min-h-screen p-4 bg-gray-100 lg:justify-center">
