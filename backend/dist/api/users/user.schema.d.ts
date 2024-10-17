@@ -5,6 +5,7 @@ export declare class User {
     password: string;
     fname: string;
     lname: string;
+    type: string;
 }
 export declare const UserSchema: import("mongoose").Schema<User, import("mongoose").Model<User, any, any, any, import("mongoose").Document<unknown, any, User> & User & {
     _id: import("mongoose").Types.ObjectId;

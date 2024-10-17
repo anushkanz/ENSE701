@@ -49,7 +49,7 @@ let UserController = class UserController {
     async addUser(createUserDto) {
         try {
             await this.userService.create(createUserDto);
-            return { message: 'User added successfully' };
+            return { action: 'redirct', message: 'User added successfully' };
         }
         catch {
             throw new common_1.HttpException({
