@@ -72,10 +72,13 @@ export class UserService {
                 // Create JWT token if password matches
                 const secret = new TextEncoder().encode(process.env.JWT_SECRET);  // Retrieve JWT secret from environment variables
                 const alg = "HS256";  // Define algorithm for JWT signing
-
-                const jwt = await new jose.SignJWT({})
+                const currentUser = {"fname":user.fname, "lname":user.lname, "email":user.email};
+                const jwt = await new jose.SignJWT({id:user.id, name:user.fname, lname:user.lname, email:user.email})
                                 .setProtectedHeader({alg})
+                                .setIssuedAt()
                                 .setExpirationTime("72h")  // Set token expiration time to 72 hours
+                                .setIssuer('http://localhost:3000')
+                                .setAudience('http://localhost:3000')
                                 .sign(secret);
                 
                 // Return the generated token

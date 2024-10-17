@@ -5,6 +5,7 @@ export declare class ArticleController {
     constructor(articleService: ArticleService);
     test(): string;
     findAll(): Promise<import("./article.schema").Article[]>;
+    header(arg0: string): void;
     findOne(id: string): Promise<import("./article.schema").Article>;
     addArticle(createArticleDto: CreateArticleDto): Promise<{
         message: string;

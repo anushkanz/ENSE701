@@ -11,6 +11,9 @@ import {
 import { ArticleService } from './article.service';
 import { CreateArticleDto } from './create-article.dto';
 import { error } from 'console';
+import * as jose from "jose";  // Import JOSE for JWT handling
+import * as dotenv from 'dotenv';  // Import dotenv for environment variables
+dotenv.config();  // Load environment variables
 
 @Controller('api/articles')
 export class ArticleController {
@@ -22,6 +25,7 @@ export class ArticleController {
     // Get all articles
     @Get('/')
     async findAll() {
+        //const token = this.header('Authorization');
         try {
             return this.articleService.findAll();
         } catch {
@@ -34,6 +38,9 @@ export class ArticleController {
         { cause: error },
         );
         }
+    }
+    header(arg0: string) {
+        throw new Error('Method not implemented.');
     }
     // Get one article via id
     @Get('/:id')

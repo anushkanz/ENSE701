@@ -63,16 +63,19 @@ const submitNewArticle = async (event: FormEvent<HTMLFormElement>) => {
 return (
     <div className="bg-white p-10 rounded-lg shadow md:w-3/4 mx-auto lg:w-1/2">
         <div className="pb-12">
-        <h1>New Article</h1>
+        <div className="flex space-x-2 space-y-2 flex-wrap justify-left items-baseline">
+            <h3 className="my-4 text-2xl font-semibold text-gray-700">New Article</h3>
+            <a href="/articles" className="rounded-lg px-4 py-2 bg-green-700 text-green-100 hover:bg-green-800 duration-300">Articles</a>
+        </div> 
         <form onSubmit={submitNewArticle}>
-            <div className="mb-5">
+            <div className="mb-5 hidden">
                 <label htmlFor="title">Status:</label>
                 <input
                     className="border border-gray-300 shadow p-3 w-full rounded"
                     type="text"
                     name="status"
                     id="status"
-                    value="1"
+                    value="0"
                     onChange={(event) => {
                         setStatus(event.target.value);
                     }}

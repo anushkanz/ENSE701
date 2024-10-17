@@ -57,9 +57,13 @@ let UserService = class UserService {
             if (bcrypt.compareSync(createUserDto.password, user.password)) {
                 const secret = new TextEncoder().encode(process.env.JWT_SECRET);
                 const alg = "HS256";
-                const jwt = await new jose.SignJWT({})
+                const currentUser = { "fname": user.fname, "lname": user.lname, "email": user.email };
+                const jwt = await new jose.SignJWT({ id: user.id, name: user.fname, lname: user.lname, email: user.email })
                     .setProtectedHeader({ alg })
+                    .setIssuedAt()
                     .setExpirationTime("72h")
+                    .setIssuer('http://localhost:3000')
+                    .setAudience('http://localhost:3000')
                     .sign(secret);
                 return {
                     jwt

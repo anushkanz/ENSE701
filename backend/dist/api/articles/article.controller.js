@@ -17,6 +17,8 @@ const common_1 = require("@nestjs/common");
 const article_service_1 = require("./article.service");
 const create_article_dto_1 = require("./create-article.dto");
 const console_1 = require("console");
+const dotenv = require("dotenv");
+dotenv.config();
 let ArticleController = class ArticleController {
     constructor(articleService) {
         this.articleService = articleService;
@@ -34,6 +36,9 @@ let ArticleController = class ArticleController {
                 error: 'No Articles found',
             }, common_1.HttpStatus.NOT_FOUND, { cause: console_1.error });
         }
+    }
+    header(arg0) {
+        throw new Error('Method not implemented.');
     }
     async findOne(id) {
         try {

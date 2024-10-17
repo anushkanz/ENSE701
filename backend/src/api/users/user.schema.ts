@@ -8,6 +8,8 @@ export type UserDocument = HydratedDocument<User>;
     email: string;
     @Prop({ required: true })
     password: string;
+    fname: string;
+    lname: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

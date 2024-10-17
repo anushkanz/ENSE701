@@ -3,6 +3,8 @@ export type UserDocument = HydratedDocument<User>;
 export declare class User {
     email: string;
     password: string;
+    fname: string;
+    lname: string;
 }
 export declare const UserSchema: import("mongoose").Schema<User, import("mongoose").Model<User, any, any, any, import("mongoose").Document<unknown, any, User> & User & {
     _id: import("mongoose").Types.ObjectId;
