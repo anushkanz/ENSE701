@@ -7,6 +7,7 @@ export declare class UserController {
     findAll(): Promise<import("./user.schema").User[]>;
     findOne(id: string): Promise<import("./user.schema").User>;
     addUser(createUserDto: CreateUserDto): Promise<{
+        action: string;
         message: string;
     }>;
     loginUser(createUserDto: CreateUserDto): Promise<"Username and Password not correct" | "We are unable to locate your account." | {

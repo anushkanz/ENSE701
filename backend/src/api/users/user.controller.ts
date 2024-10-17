@@ -55,7 +55,7 @@ export class UserController {
     async addUser(@Body() createUserDto: CreateUserDto) {
         try {
             await this.userService.create(createUserDto);
-            return { message: 'User added successfully' };
+            return { action:'redirct', message: 'User added successfully' };
         } catch {
             throw new HttpException(
             {
