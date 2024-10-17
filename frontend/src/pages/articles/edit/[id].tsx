@@ -29,13 +29,13 @@ export const EditArticleForm = () => {
     }));
   };
   const params = useParams<{ id: string;}>()
-  console.log(params.id)
+  console.log(params?.id)
 
   const handleSubmitAndRedirect = () => {
     const data = { article, params };
 
     try {
-      axios.put(`http://localhost:8082/api/articles/${params.id}`, data);
+      axios.put(`http://localhost:8082/api/articles/${params?.id}`, data);
 
     } catch (error: any) {
       console.error(error.response.data);
@@ -45,7 +45,7 @@ export const EditArticleForm = () => {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get(`http://localhost:8082/api/articles/${params.id}`);
+        const { data } = await axios.get(`http://localhost:8082/api/articles/${params?.id}`);
         console.log(data);
         setArticle(data);
       } catch (error: any) {
@@ -70,9 +70,8 @@ export const EditArticleForm = () => {
                           name="status"
                           id="status"
                           value={article.status || ""}
-                          onChange={(event) => {
-                              setStatus(event.target.value);
-                          } } />
+                          onChange={handleChange}
+                          />
                   </div>
                   <div className="mb-5">
                       <label htmlFor="title">Title:</label>
@@ -82,9 +81,8 @@ export const EditArticleForm = () => {
                           name="title"
                           id="title"
                           value={article.title || ""}
-                          onChange={(event) => {
-                              setTitle(event.target.value);
-                          } } />
+                          onChange={handleChange}
+                          />
                   </div>
                   <div className="mb-5">
                       <label htmlFor="author">Authors:</label>
@@ -94,9 +92,8 @@ export const EditArticleForm = () => {
                           name="authors"
                           id="authors"
                           value={article.authors || ""}
-                          onChange={(event) => {
-                              setAuthors(event.target.value);
-                          } } />
+                          onChange={handleChange}
+                          />
                   </div>
                   <div className="mb-5">
                       <label htmlFor="source">Source:</label>
@@ -106,9 +103,8 @@ export const EditArticleForm = () => {
                           name="source"
                           id="source"
                           value={article.source || ""}
-                          onChange={(event) => {
-                              setSource(event.target.value);
-                          } } />
+                          onChange={handleChange}
+                          />
                   </div>
                   <div className="mb-5">
                       <label htmlFor="pubYear">Publication Year:</label>
@@ -118,9 +114,8 @@ export const EditArticleForm = () => {
                           name="pubYear"
                           id="pubYear"
                           value={article.publication_year || ""}
-                          onChange={(event) => {
-                              setPubYear(event.target.value);
-                          } } />
+                          onChange={handleChange}
+                           />
                   </div>
                   <div className="mb-5">
                       <label htmlFor="doi">DOI:</label>
@@ -130,9 +125,8 @@ export const EditArticleForm = () => {
                           name="doi"
                           id="doi"
                           value={article.doi || ""}
-                          onChange={(event) => {
-                              setDoi(event.target.value);
-                          } } />
+                          onChange={handleChange}
+                          />
                   </div>
                   <div className="mb-5">
                       <label htmlFor="summary">Summary:</label>
@@ -140,7 +134,8 @@ export const EditArticleForm = () => {
                           className="border border-gray-300 shadow p-3 w-full rounded mb-"
                           name="summary"
                           value={article.summary || ""}
-                          onChange={(event) => setSummary(event.target.value)} />
+                          onChange={handleChange}
+                           />
                   </div>
                   <div className="mb-5">
                       <label htmlFor="linked_discussion">Linked discussion:</label>
@@ -148,7 +143,8 @@ export const EditArticleForm = () => {
                           className="border border-gray-300 shadow p-3 w-full rounded mb-"
                           name="linked_discussion"
                           value={article.linked_discussion || ""}
-                          onChange={(event) => setLinkedDiscussion(event.target.value)} />
+                          onChange={handleChange}
+                           />
                   </div>
                   <div className="mb-5">
                       <button className="block w-full bg-blue-500 text-white font-bold p-4 rounded-lg" type="submit">Submit</button>
