@@ -7,6 +7,7 @@ import Link from "next/link";
   const DataFetcher = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [type, setType] = useState("");
     const [error, setError] = useState(null);
     
     useEffect(() => {
@@ -35,7 +36,8 @@ import Link from "next/link";
             if(Cookies.get('token')){
                 setData(data);
             }
-            
+            const getType = Cookies.get('type');
+            setType(getType);
             setLoading(false);
           } catch (error) {
             setError(error);
@@ -123,20 +125,27 @@ import Link from "next/link";
                                   }
                               </td>
                               <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-right">
-                                <button onClick={()=>actionButton(item)}
-                                  type="button"
-                                  className="inline-block text-gray-500 hover:text-gray-700 font-semibold text-green-900 leading-tight">
-                                 Change Status
-                                </button>
+                              
+                                { type === '1' ?(  
+                                    <Link href={{ pathname: 'articles/view/[id]', query: { id: item._id } }}>
+                                      View
+                                    </Link>  
+                                ):(
+                                  <button onClick={()=>actionButton(item)}
+                                    type="button"
+                                    className="inline-block text-gray-500 hover:text-gray-700 font-semibold text-green-900 leading-tight">
+                                  Change Status
+                                  </button>
+                                )}
                               </td>
                               <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-right">
-                                
-                                <div>
-    
-    <Link href={{ pathname: 'articles/edit/[id]', query: { id: item._id } }}>
-      Edit
-    </Link>
-  </div>
+                                { type !== '1' ?(  
+                                    <Link href={{ pathname: 'articles/edit/[id]', query: { id: item._id } }}>
+                                      Edit
+                                    </Link>
+                                ):(
+                                  <></>
+                                )}
                               </td>
                             </tr>
                           ))}
