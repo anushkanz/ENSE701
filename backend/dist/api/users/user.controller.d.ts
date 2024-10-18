@@ -12,6 +12,7 @@ export declare class UserController {
     }>;
     loginUser(createUserDto: CreateUserDto): Promise<"Username and Password not correct" | "We are unable to locate your account." | {
         jwt: string;
+        type: string | number;
     }>;
     updateUser(id: string, createUserDto: CreateUserDto): Promise<{
         message: string;

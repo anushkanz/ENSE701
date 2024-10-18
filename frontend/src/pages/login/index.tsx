@@ -6,6 +6,7 @@ const userLogin = () => {
 const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
 const [settoken, setToken] = useState("");
+const [redirect, setRedirect] = useState("");
 //console.log(Cookies.get('token'));
 //Submit 
 const submitLogin = async (event: FormEvent<HTMLFormElement>) => {
@@ -29,6 +30,11 @@ const submitLogin = async (event: FormEvent<HTMLFormElement>) => {
     Cookies.set('token', jsonArray.jwt, { expires: 72, secure: true });
     setToken(jsonArray.jwt);
     console.log(jsonArray.jwt)
+
+    if(jsonArray?.jwt){
+        Cookies.set('type', jsonArray.type, { expires: 72, secure: true });
+        setRedirect(jsonArray?.type);
+    }
 };
 return (
     <div className="space-y-12">

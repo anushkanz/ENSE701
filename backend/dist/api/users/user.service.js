@@ -66,7 +66,8 @@ let UserService = class UserService {
                     .setAudience('http://localhost:3000')
                     .sign(secret);
                 return {
-                    jwt
+                    jwt: jwt,
+                    type: user?.type ? user?.type : 1
                 };
             }
             else {

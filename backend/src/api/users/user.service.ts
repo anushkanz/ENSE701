@@ -83,7 +83,8 @@ export class UserService {
                 
                 // Return the generated token
                 return {
-                    jwt
+                    jwt:jwt,
+                    type: user?.type ? user?.type : 1
                 };  
             } else {
                 // Return error message if password does not match
