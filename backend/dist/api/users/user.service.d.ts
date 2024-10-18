@@ -20,5 +20,6 @@ export declare class UserService {
     }>;
     login(createUserDto: CreateUserDto): Promise<"Username and Password not correct" | "We are unable to locate your account." | {
         jwt: string;
+        type: string | number;
     }>;
 }
