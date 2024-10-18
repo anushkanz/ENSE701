@@ -40,6 +40,17 @@ let ArticleController = class ArticleController {
     header(arg0) {
         throw new Error('Method not implemented.');
     }
+    async search(title) {
+        try {
+            return this.articleService.search(title);
+        }
+        catch {
+            throw new common_1.HttpException({
+                status: common_1.HttpStatus.NOT_FOUND,
+                error: 'No Article found',
+            }, common_1.HttpStatus.NOT_FOUND, { cause: console_1.error });
+        }
+    }
     async findOne(id) {
         try {
             return this.articleService.findOne(id);
@@ -112,6 +123,13 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], ArticleController.prototype, "findAll", null);
+__decorate([
+    (0, common_1.Post)('/search'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], ArticleController.prototype, "search", null);
 __decorate([
     (0, common_1.Get)('/:id'),
     __param(0, (0, common_1.Param)('id')),

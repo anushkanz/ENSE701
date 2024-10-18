@@ -42,6 +42,23 @@ export class ArticleController {
     header(arg0: string) {
         throw new Error('Method not implemented.');
     }
+
+    @Post('/search')
+    async search(@Body() title : string) {
+        try {
+            return this.articleService.search(title);
+        } catch {
+            throw new HttpException(
+            {
+                status: HttpStatus.NOT_FOUND,
+                error: 'No Article found',
+            },
+        HttpStatus.NOT_FOUND,
+        { cause: error },
+        );
+        }
+    }
+    
     // Get one article via id
     @Get('/:id')
     async findOne(@Param('id') id: string) {

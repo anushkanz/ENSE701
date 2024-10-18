@@ -6,6 +6,9 @@ export declare class ArticleController {
     test(): string;
     findAll(): Promise<import("./article.schema").Article[]>;
     header(arg0: string): void;
+    search(title: string): Promise<string | (import("mongoose").Document<unknown, {}, import("./article.schema").Article> & import("./article.schema").Article & {
+        _id: import("mongoose").Types.ObjectId;
+    })[]>;
     findOne(id: string): Promise<import("./article.schema").Article>;
     addArticle(createArticleDto: CreateArticleDto): Promise<{
         message: string;
