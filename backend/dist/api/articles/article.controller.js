@@ -63,6 +63,18 @@ let ArticleController = class ArticleController {
             }, common_1.HttpStatus.BAD_REQUEST, { cause: console_1.error });
         }
     }
+    async updateArticleStatus(id, createArticleDto) {
+        try {
+            await this.articleService.updateStatus(id, createArticleDto);
+            return { message: 'Article updated successfully' };
+        }
+        catch {
+            throw new common_1.HttpException({
+                status: common_1.HttpStatus.BAD_REQUEST,
+                error: 'Unable to update this Article',
+            }, common_1.HttpStatus.BAD_REQUEST, { cause: console_1.error });
+        }
+    }
     async updateArticle(id, createArticleDto) {
         try {
             await this.articleService.update(id, createArticleDto);
@@ -114,6 +126,14 @@ __decorate([
     __metadata("design:paramtypes", [create_article_dto_1.CreateArticleDto]),
     __metadata("design:returntype", Promise)
 ], ArticleController.prototype, "addArticle", null);
+__decorate([
+    (0, common_1.Put)('/status/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, create_article_dto_1.CreateArticleDto]),
+    __metadata("design:returntype", Promise)
+], ArticleController.prototype, "updateArticleStatus", null);
 __decorate([
     (0, common_1.Put)('/:id'),
     __param(0, (0, common_1.Param)('id')),

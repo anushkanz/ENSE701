@@ -4,6 +4,8 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route } from "react-router-dom";
 import Cookies from 'js-cookie';
 import Link from "next/link";
+import axios from "axios";
+
   const DataFetcher = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -14,9 +16,6 @@ import Link from "next/link";
       fetchData();
     }, []);
     
-    const actionButton = (item: never)=>{
-        console.log(item);
-    }
     const fetchData = async () => {
       if(Cookies.get('token')){
         console.log(Cookies.get('token'));
@@ -131,11 +130,9 @@ import Link from "next/link";
                                       View
                                     </Link>  
                                 ):(
-                                  <button onClick={()=>actionButton(item)}
-                                    type="button"
-                                    className="inline-block text-gray-500 hover:text-gray-700 font-semibold text-green-900 leading-tight">
-                                  Change Status
-                                  </button>
+                                  <Link href={{ pathname: 'articles/status/[id]', query: { id: item._id } }}>
+                                      Change Status
+                                    </Link> 
                                 )}
                               </td>
                               <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-right">

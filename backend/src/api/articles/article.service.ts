@@ -13,9 +13,11 @@ export class ArticleService {
     async findAll(): Promise<Article[]> {
         return await this.articleModel.find().exec();
     }
+
     async findOne(id: string): Promise<Article> {
         return await this.articleModel.findById(id).exec();
     }
+
     async create(createArticleDto: CreateArticleDto) {
         return await this.articleModel.create(createArticleDto);
     }
@@ -25,5 +27,20 @@ export class ArticleService {
     async delete(id: string) {
         const deletedArticle = await this.articleModel.findByIdAndDelete(id).exec();
         return deletedArticle;
+    }
+
+    async updateStatus(id: string,createArticleDto: CreateArticleDto) {
+        const article = await this.articleModel.findOne({ _id: id}).exec();
+        if (article?._id) {
+            const newStatus = 0;
+            if(article?.status === '0' ){
+                const newStatus = 1;
+            }     
+            let data = {
+                ...createArticleDto,
+                status: newStatus
+            };
+            return await this.articleModel.findByIdAndUpdate(id, data).exec();
+        }
     }
 }

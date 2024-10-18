@@ -10,6 +10,9 @@ export declare class ArticleController {
     addArticle(createArticleDto: CreateArticleDto): Promise<{
         message: string;
     }>;
+    updateArticleStatus(id: string, createArticleDto: CreateArticleDto): Promise<{
+        message: string;
+    }>;
     updateArticle(id: string, createArticleDto: CreateArticleDto): Promise<{
         message: string;
     }>;

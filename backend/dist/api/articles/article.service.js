@@ -40,6 +40,20 @@ let ArticleService = class ArticleService {
         const deletedArticle = await this.articleModel.findByIdAndDelete(id).exec();
         return deletedArticle;
     }
+    async updateStatus(id, createArticleDto) {
+        const article = await this.articleModel.findOne({ _id: id }).exec();
+        if (article?._id) {
+            const newStatus = 0;
+            if (article?.status === '0') {
+                const newStatus = 1;
+            }
+            let data = {
+                ...createArticleDto,
+                status: newStatus
+            };
+            return await this.articleModel.findByIdAndUpdate(id, data).exec();
+        }
+    }
 };
 exports.ArticleService = ArticleService;
 exports.ArticleService = ArticleService = __decorate([

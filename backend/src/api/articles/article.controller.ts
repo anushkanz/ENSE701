@@ -74,6 +74,27 @@ export class ArticleController {
         );
         }
     }
+    // Update a Article Status
+    @Put('/status/:id')
+    async updateArticleStatus(
+        @Param('id') id: string,
+        @Body() createArticleDto: CreateArticleDto,
+        ) {
+        try {
+            await this.articleService.updateStatus(id, createArticleDto);
+            return { message: 'Article updated successfully' };
+        } catch {
+            throw new HttpException(
+            {
+                status: HttpStatus.BAD_REQUEST,
+                error: 'Unable to update this Article',
+            },
+            HttpStatus.BAD_REQUEST,
+            { cause: error },
+            );
+        }
+    }
+
     // Update a Article
     @Put('/:id')
     async updateArticle(
