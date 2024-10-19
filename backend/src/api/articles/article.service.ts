@@ -29,6 +29,11 @@ export class ArticleService {
         return deletedArticle;
     }
 
+    async search(title: string){
+        return title;
+        return await this.articleModel.find({ "title": { $regex: /title/i } }).exec();
+    }
+
     async updateStatus(id: string,createArticleDto: CreateArticleDto) {
         const article = await this.articleModel.findOne({ _id: id}).exec();
         if (article?._id) {
