@@ -41,8 +41,11 @@ let ArticleService = class ArticleService {
         return deletedArticle;
     }
     async search(title) {
-        return title;
-        return await this.articleModel.find({ "title": { $regex: /title/i } }).exec();
+        if (!title) {
+            return [];
+        }
+        const searchPattern = new RegExp(title, 'i');
+        return await this.articleModel.find({ title: { $regex: searchPattern } }).exec();
     }
     async updateStatus(id, createArticleDto) {
         const article = await this.articleModel.findOne({ _id: id }).exec();

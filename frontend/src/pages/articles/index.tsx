@@ -5,13 +5,25 @@ import { BrowserRouter, Route } from "react-router-dom";
 import Cookies from 'js-cookie';
 import Link from "next/link";
 import axios from "axios";
+import { useRouter } from "next/router";
 
   const DataFetcher = () => {
+
+    const router = useRouter();
+
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [type, setType] = useState("");
     const [error, setError] = useState(null);
-    
+
+    useEffect(() => {
+      // If you're using cookies
+      if(Cookies.get("token") == ''){
+        router.push('/');
+      } // Remove the token stored in cookies
+      
+    }, [router]);
+
     useEffect(() => {
       fetchData();
     }, []);
@@ -63,6 +75,7 @@ import axios from "axios";
                         <h3 className="my-4 text-2xl font-semibold text-gray-700">Dashboard</h3>
                         <a href="/articles/new" className="rounded-lg px-4 py-2 bg-green-700 text-green-100 hover:bg-green-800 duration-300">New Articles</a>
                         <a href="/articles/search" className="rounded-lg px-4 py-2 bg-green-700 text-green-100 hover:bg-green-800 duration-300">Search Articles</a>
+                        <a href="/logout" className="rounded-lg px-4 py-2 bg-red-700 text-green-100 hover:bg-red-800 duration-300">Logout</a>
                     </div>    
                 
                   <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">

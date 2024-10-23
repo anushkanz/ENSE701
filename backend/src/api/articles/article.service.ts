@@ -29,9 +29,19 @@ export class ArticleService {
         return deletedArticle;
     }
 
-    async search(title: string){
-        return title;
-        return await this.articleModel.find({ "title": { $regex: /title/i } }).exec();
+    async search(title: string): Promise<Article[]>{
+        // Check if the title is empty or undefined
+        if (!title) {
+            // Optionally, you can throw an error or return an empty array
+            return []; // Return an empty array if no title is provided
+        }
+
+       // Create a regex pattern to match the title
+        const searchPattern = new RegExp(title, 'i'); // 'i' for case-insensitive matching
+
+        // Use the regex pattern to find articles
+        return await this.articleModel.find({ title: { $regex: searchPattern } }).exec();
+     
     }
 
     async updateStatus(id: string,createArticleDto: CreateArticleDto) {

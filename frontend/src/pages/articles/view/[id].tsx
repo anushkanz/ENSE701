@@ -41,6 +41,7 @@ export const ViewArticle = () => {
               <div className="flex space-x-2 space-y-2 flex-wrap justify-left items-baseline">
                   <h3 className="my-4 text-2xl font-semibold text-gray-700">View {article.title || ""} Article</h3>
                   <a href="/articles" className="rounded-lg px-4 py-2 bg-green-700 text-green-100 hover:bg-green-800 duration-300">Back to Articles</a>
+                  <a href="/logout" className="rounded-lg px-4 py-2 bg-red-700 text-green-100 hover:bg-red-800 duration-300">Logout</a>
               </div>
               <form>
                   <div className="mb-5 hidden">

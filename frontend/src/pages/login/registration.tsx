@@ -70,8 +70,8 @@ const userRegistration = () => {
                     Software Practice Empirical Evidence Database (SPEED)
                     </p>
                     <p className="flex flex-col items-center justify-center mt-10 text-center">
-                        <span>Don't have an account?</span>
-                        <a href="#" className="underline">Get Started!</a>
+                        <span>You have an account?</span>
+                        <a href="/login" className="underline">Login</a>
                     </p>
                     <p className="mt-6 text-sm text-center text-gray-300">
                         Read our <a href="#" className="underline">terms</a> and <a href="#" className="underline">conditions</a>

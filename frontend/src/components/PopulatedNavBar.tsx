@@ -33,7 +33,7 @@ const PopulatedNavBar = () => {
         //Start NavBar
         <NavBar>
             <NavItem>SPEED</NavItem>
-            <NavItem route="/" end>Home</NavItem>
+            <NavItem route="/login" end>Login</NavItem>
         </NavBar>        
     );
 };

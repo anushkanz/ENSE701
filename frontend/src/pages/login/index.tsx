@@ -51,6 +51,7 @@ return (
                     <div className="flex space-x-2 space-y-2 flex-wrap justify-center items-baseline">
                         <a href="/articles" className="rounded-lg px-4 py-2 bg-blue-500 text-blue-100 hover:bg-blue-800 duration-300">Articles</a>
                         <a href="/articles/new" className="rounded-lg px-4 py-2 bg-green-700 text-green-100 hover:bg-green-800 duration-300">New Articles</a>
+                        <a href="/logout" className="rounded-lg px-4 py-2 bg-red-700 text-green-100 hover:bg-red-800 duration-300">Logout</a>
                     </div>    
                 </div>
             </div>
@@ -67,7 +68,7 @@ return (
                 </p>
                 <p className="flex flex-col items-center justify-center mt-10 text-center">
                     <span>Don't have an account?</span>
-                    <a href="#" className="underline">Get Started!</a>
+                    <a href="/login/registration" className="underline">Get Started!</a>
                 </p>
                 <p className="mt-6 text-sm text-center text-gray-300">
                     Read our <a href="#" className="underline">terms</a> and <a href="#" className="underline">conditions</a>

@@ -1,7 +1,10 @@
-import { FormEvent, useState } from "react";
-import formStyles from "../../styles/Form.module.scss";
+import { FormEvent, useEffect, useState } from "react";
+import Cookies from 'js-cookie';
+import { BrowserRouter, Route } from "react-router-dom";
+import { useRouter } from "next/router";
 
 const NewDiscussion = () => {
+   
     const [title, setTitle] = useState("");
     const [authors, setAuthors] = useState("");
     const [source, setSource] = useState("");
@@ -46,6 +49,7 @@ const NewDiscussion = () => {
             })
         );
     };
+    
 // Some helper methods for the authors array
 // const addAuthor = () => {
 //     setAuthors(authors.concat([""]));
@@ -67,6 +71,7 @@ const NewDiscussion = () => {
             <div className="flex space-x-2 space-y-2 flex-wrap justify-left items-baseline">
                 <h3 className="my-4 text-2xl font-semibold text-gray-700">New Article</h3>
                 <a href="/articles" className="rounded-lg px-4 py-2 bg-green-700 text-green-100 hover:bg-green-800 duration-300">Articles</a>
+                <a href="/logout" className="rounded-lg px-4 py-2 bg-red-700 text-green-100 hover:bg-red-800 duration-300">Logout</a>
             </div> 
             <form onSubmit={submitNewArticle}>
                 <div className="mb-5 hidden">

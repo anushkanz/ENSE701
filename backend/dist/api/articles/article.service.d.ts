@@ -16,9 +16,7 @@ export declare class ArticleService {
     delete(id: string): Promise<import("mongoose").Document<unknown, {}, Article> & Article & {
         _id: import("mongoose").Types.ObjectId;
     }>;
-    search(title: string): Promise<string | (import("mongoose").Document<unknown, {}, Article> & Article & {
-        _id: import("mongoose").Types.ObjectId;
-    })[]>;
+    search(title: string): Promise<Article[]>;
     updateStatus(id: string, createArticleDto: CreateArticleDto): Promise<import("mongoose").Document<unknown, {}, Article> & Article & {
         _id: import("mongoose").Types.ObjectId;
     }>;
