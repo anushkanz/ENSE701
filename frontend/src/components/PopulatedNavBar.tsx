@@ -12,30 +12,25 @@ import { IoMdArrowDropdown } from "react-icons/io";
 import NavBar from "./nav/NavBar";
 import NavDropdown from "./nav/NavDropdown";
 import NavItem from "./nav/NavItem";
-import Cookies from 'js-cookie';
-import { useEffect, useState } from "react";
 
-//Create NavBar
 const PopulatedNavBar = () => {
-    //Create Return
-    //Check token
-    const token = Cookies.get('token');
-    const [isActive, setIsActive] = useState('');
-   
-    useEffect(()=>{
-        console.log(token)
-            if(token){
-                setIsActive(token);
-            }
-    },[token])
-        
-    return (
-        //Start NavBar
-        <NavBar>
-            <NavItem>SPEED</NavItem>
-            <NavItem route="/" end>Home</NavItem>
-        </NavBar>        
+  return (
+    <NavBar>
+      <NavItem>SPEED</NavItem>
+      <NavItem route="/" end>
+        Home
+      </NavItem>
+      <NavItem dropdown route="/articles">
+        Articles <IoMdArrowDropdown />
+        <NavDropdown>
+          <NavItem route="/articles">View articles</NavItem>
+          <NavItem route="/articles/new">Submit new</NavItem>
+        </NavDropdown>
+        </NavItem>
+      <NavItem route="/login">Login</NavItem>
+      <NavItem route="/login/registration">Register</NavItem>
+    </NavBar>
     );
 };
-//Export NavBar
+
 export default PopulatedNavBar;
